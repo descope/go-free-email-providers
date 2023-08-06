@@ -1,49 +1,37 @@
-go-burner-email-providers
+go-free-email-providers
 ----
 [![Go Reference](https://pkg.go.dev/badge/github.com/lindell/go-burner-email-providers/burner.svg)](https://pkg.go.dev/github.com/lindell/go-burner-email-providers/burner)
 [![Daily list sync](https://github.com/lindell/go-burner-email-providers/workflows/Daily%20list%20sync/badge.svg)](https://github.com/lindell/go-burner-email-providers/actions?query=workflow%3A%22Daily+list+sync%22)
 [![Go Report Card](https://goreportcard.com/badge/github.com/lindell/go-burner-email-providers)](https://goreportcard.com/report/github.com/lindell/go-burner-email-providers)
 
 
-Go package that detects burner (temporary) emails based on the community maintained [wesbos/burner-email-providers](https://github.com/wesbos/burner-email-providers) list. This repository is synced daily against that list.
-
-It does currently contain 15,508 domains and the lookup is done with a hash set for instant results.
+Go package that detects free email providers 
 
 ## Installation
 
 ```
-go get github.com/lindell/go-burner-email-providers
+go get github.com/descope/go-free-email-providers
 ```
 
 ## Usage
 
 ```go
 import (
-    "github.com/lindell/go-burner-email-providers/burner"
+    "github.com/descope/go-free-email-providers/free"
 )
 
 func main() {
-	isBurnerEmail := burner.IsBurnerEmail("test@temp-mail.org")
+	isBurnerEmail := burner.IsFreeEmail("test@gmail.org")
 	fmt.Println(isBurnerEmail) // true
 
-	isBurnerEmail = burner.IsBurnerEmail("johan@gmail.com")
+	isBurnerEmail = burner.IsFreeEmail("johan@descope.com")
 	fmt.Println(isBurnerEmail) // false
 
-	isBurnerDomain := burner.IsBurnerDomain("temp-mail.org")
+	isBurnerDomain := burner.IsFreeDomain("gmail.org")
 	fmt.Println(isBurnerDomain) // true
 
-	isBurnerEmail = burner.IsBurnerDomain("gmail.com")
+	isBurnerEmail = burner.IsFreeDomain("descope.com")
 	fmt.Println(isBurnerEmail) // false
 }
 ```
-
-## Size
-
-Since the list of domains is quite large, the binary size and memory usage is not insignificant.
-
-The increase of using this package is:
-| Where | Size diff |
-| -| -|
-| On Disc | 0.45 Mb |
-| Memory | 0.60 Mb |
 

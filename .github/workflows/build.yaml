@@ -33,31 +33,3 @@ jobs:
         env:
           STEPS_CONTEXT: ${{ toJson(steps) }}
         run: echo "$STEPS_CONTEXT"
-
-      - name: Generate new readme
-        if: steps.changes.outcome != 'success'
-        run: go run tools/generate-readme/main.go
-
-      - name: Commit changes
-        if: steps.changes.outcome != 'success'
-        run: |
-          git checkout main --
-          git config user.email "johan@lindell.me"
-          git config user.name "Johan Lindell"
-          git add README.md
-          git add burner/
-          git commit -m "chore: updated domain list"
-
-      - name: Bump version
-        if: steps.changes.outcome != 'success'
-        run: |
-          CURRENT_TAG=`git describe --tags --abbrev=0`
-          NEW_PATCH=`echo $CURRENT_TAG | sed -E 's/v[0-9]+\.[0-9]+\.([0-9]+)/\1+1/' | bc`
-          NEW_TAG=`echo $CURRENT_TAG | sed -E "s/(v[0-9]+\.[0-9]+\.)[0-9]+/\1$NEW_PATCH/"`
-          git tag -a $NEW_TAG -m $NEW_TAG
-
-      - name: Push changes
-        if: steps.changes.outcome != 'success'
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push --follow-tags
