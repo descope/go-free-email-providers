@@ -34,3 +34,11 @@ jobs:
         env:
           STEPS_CONTEXT: ${{ toJson(steps) }}
         run: echo "$STEPS_CONTEXT"
+      - name: Commit changes
+        if: steps.changes.outcome != 'success'
+        run: |
+          git checkout main --
+          git config user.email "${{ secrets.EMAIL }}"
+          git config user.name "Meir Wahnon"
+          git add free/
+          git commit -m "chore: updated domain list"
