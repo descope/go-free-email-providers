@@ -12,13 +12,19 @@ func IsFreeEmail(email string) bool {
 		return true // not a valid email,
 	}
 	domain := email[at+1:]
+	if len(domain) == 0 {
+		return true // not a valid email domain
+	}
 
 	_, ok := domains[domain]
 	return ok
 }
 
-// IsBurnerDomain checks if a domain is in a list of free email domain names
+// IsFreeDomain checks if a domain is in a list of free email domain names
 func IsFreeDomain(domain string) bool {
+	if len(domain) == 0 {
+		return true // not a valid email domain
+	}
 	_, ok := domains[domain]
 	return ok
 }
