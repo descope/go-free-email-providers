@@ -1,6 +1,7 @@
 name: Daily list sync
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "30 15 * * *"
 
