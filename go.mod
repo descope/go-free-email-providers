@@ -1,3 +1,3 @@
-module github.com/lindell/go-burner-email-providers
+module github.com/descope/go-free-email-providers
 
-go 1.15
+go 1.20

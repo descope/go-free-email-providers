@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-const emailListURL = "https://raw.githubusercontent.com/wesbos/burner-email-providers/master/emails.txt"
+const emailListURL = "https://f.hubspotusercontent40.net/hubfs/2832391/Marketing/Lead-Capture/free-domains-2.csv"
 
 func main() {
 	if err := run(); err != nil {
@@ -34,13 +34,13 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	file, err := os.Create(path.Join(currentPath, "burner/list.go"))
+	file, err := os.Create(path.Join(currentPath, "free/list.go"))
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
-	if _, err := fmt.Fprint(file, "// Code generated (see tools/generate-list/main.go) DO NOT EDIT.\n\npackage burner\n\nvar domains = map[string]struct{}{\n"); err != nil {
+	if _, err := fmt.Fprint(file, "// Code generated (see tools/generate-list/main.go) DO NOT EDIT.\n\npackage free\n\nvar domains = map[string]struct{}{\n"); err != nil {
 		return err
 	}
 
