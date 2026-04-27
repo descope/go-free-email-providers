@@ -56,3 +56,30 @@ func TestFreeDomains(t *testing.T) {
 		}
 	}
 }
+
+func TestCaseInsensitiveEmail(t *testing.T) {
+	emails := []string{
+		"hello@Gmail.COM",
+		"hello@GMAIL.COM",
+		"Hello@Gmail.Com",
+		"hello@Yahoo.com",
+	}
+	for _, email := range emails {
+		if ok := IsFreeEmail(email); !ok {
+			t.Errorf("%s should be considered free email (case-insensitive)", email)
+		}
+	}
+}
+
+func TestCaseInsensitiveDomain(t *testing.T) {
+	domains := []string{
+		"Gmail.COM",
+		"GMAIL.COM",
+		"ProtonMail.Com",
+	}
+	for _, domain := range domains {
+		if ok := IsFreeDomain(domain); !ok {
+			t.Errorf("%s should be considered free domain (case-insensitive)", domain)
+		}
+	}
+}

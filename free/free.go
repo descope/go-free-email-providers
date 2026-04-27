@@ -7,6 +7,7 @@ import (
 
 // IsFreeEmail checks if the domain of an email address is in a list of free email domain names
 func IsFreeEmail(email string) bool {
+	email = strings.ToLower(email)
 	at := strings.LastIndex(email, "@")
 	if at == -1 {
 		return true // not a valid email,
@@ -22,6 +23,7 @@ func IsFreeEmail(email string) bool {
 
 // IsFreeDomain checks if a domain is in a list of free email domain names
 func IsFreeDomain(domain string) bool {
+	domain = strings.ToLower(domain)
 	if len(domain) == 0 {
 		return true // not a valid email domain
 	}
